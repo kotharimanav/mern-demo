@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import layoutRoutes from '../routes/layoutRoutes';
 import ProtectedRoutes from '../routes/ProtectedRoutes';
 import { useSelector } from 'react-redux';
-import { Button } from 'antd';
 
 const Layout = () => {
   const auth = useSelector(state => state.auth);

@@ -29,7 +29,7 @@ export function* addUserRequest() {
         try {
             const token = yield select(state => state.auth.accessToken);
 
-            const response = yield addUser(token, data);
+            yield addUser(token, data);
             notification.open({
                 message: 'User Added',
                 description: 'User have been added '
@@ -52,7 +52,7 @@ export function* editUserRequest() {
         try {
             const token = yield select(state => state.auth.accessToken);
             yield editUser(token, id, data);
-            const response =  notification.open({
+            notification.open({
                 message: 'User Details Saved',
                 description:'User have been saved '
             });
@@ -74,7 +74,7 @@ export function* removeUserRequest() {
     yield takeEvery(userActions.REMOVE_USER, function* ({ id }) {
         try {
             const token = yield select(state => state.auth.accessToken);
-            const response = yield removeUser(token, id);
+            yield removeUser(token, id);
             notification.open({
                 message: 'User Details Removed',
                 description: 'User have been removed '
