@@ -1,0 +1,23 @@
+$primary-font-light:'op-light';
+$primary-font-regular: 'op-regular';
+$primary-font-semibold: 'op-semibold';
+$primary-font-bold: 'op-bold';
+$primary-font-extrabold: 'op-extrabold';
+
+// BREAKPOINT 
+$large    : 1199.98px;
+$medium   : 991.98px;
+$small    : 767.98px;
+$xsmall   : 575.98px;
+
+
+$base-image-path: './../images/';
+
+$login-left-back: $base-image-path + 'jose-llamas-1251522-unsplash.png';
+
+@mixin resp($media) {
+    @media(max-width:$media)
+    {
+      @content;
+    }
+}
