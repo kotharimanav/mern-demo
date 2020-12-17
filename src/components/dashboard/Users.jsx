@@ -5,7 +5,7 @@ import UserFormModal from './UserFormModal';
 import userActions from '../../actions/users';
 import { Table, Input, Button, Space } from 'antd';
 import Highlighter from 'react-highlight-words';
-import {UserOutlined, SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 
 const { getUsers, removeUser } = userActions;
 
@@ -91,7 +91,7 @@ const DashboardPage = ({ data }) => {
       key: 'imgPath',
       render: (text, row) => (
         <div className=''>
-          <img height="35px" src={'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png'}/>
+          <img height="35px" src={'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png'} alt="profile"/>
         </div>
       )
     },
