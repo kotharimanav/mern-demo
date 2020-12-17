@@ -5,7 +5,7 @@ import UserFormModal from './UserFormModal';
 import userActions from '../../actions/users';
 import { Table, Input, Button, Space } from 'antd';
 import Highlighter from 'react-highlight-words';
-import { SearchOutlined } from '@ant-design/icons';
+import {UserOutlined, SearchOutlined } from '@ant-design/icons';
 
 const { getUsers, removeUser } = userActions;
 
@@ -16,8 +16,8 @@ const DashboardPage = ({ data }) => {
   const dispatch = useDispatch();
   const users = useSelector(state => state.users.data);
   const loader = useSelector(state => state.users.loader);
-  const [searchText,setSearchText] = useState(null);
-  const [searchedColumn,setSerchedColumn] = useState(null);
+  const [searchText, setSearchText] = useState(null);
+  const [searchedColumn, setSerchedColumn] = useState(null);
   useEffect(() => {
     dispatch(getUsers());
     // eslint-disable-next-line
@@ -63,8 +63,8 @@ const DashboardPage = ({ data }) => {
           textToHighlight={text ? text.toString() : ''}
         />
       ) : (
-        text
-      ),
+          text
+        ),
   });
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -83,7 +83,17 @@ const DashboardPage = ({ data }) => {
     {
       title: 'Id',
       key: 'index',
-      render : (text, record, index) => index+1,
+      render: (text, record, index) => index + 1,
+    },
+    {
+      title: 'Profile',
+      dataIndex: 'imgPath',
+      key: 'imgPath',
+      render: (text, row) => (
+        <div className=''>
+          <img height="35px" src={'https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png'}/>
+        </div>
+      )
     },
     {
       title: 'Name',
@@ -107,26 +117,20 @@ const DashboardPage = ({ data }) => {
       sorter: (a, b) => a.email.length - b.email.length,
     },
     {
-      title: 'Edit',
-      dataIndex: 'edit',
-      key: 'email',
+      title: 'Actions',
+      dataIndex: 'action',
+      key: 'action',
       render: (text, record) => {
-        return (<Button
-          onClick={() => {
-            setUser(record);
-            setIsEdit(true);
-            setvisible(true);
-          }}>
-          Edit
-        </Button>)
-      }
-    },
-    {
-      title: 'Remove',
-      dataIndex: 'remove',
-      key: 'email',
-      render: (text, record) => {
-        return (
+        return (<div>
+          <Button 
+          className="mr-15"
+            onClick={() => {
+              setUser(record);
+              setIsEdit(true);
+              setvisible(true);
+            }}>
+            Edit
+        </Button>
           <Popconfirm
             title="Are you sure to delete this user?"
             onConfirm={() => {
@@ -138,9 +142,9 @@ const DashboardPage = ({ data }) => {
           >
             <Button>
               Remove
-          </Button>
+       </Button>
           </Popconfirm>
-        )
+        </div>)
       }
     },
   ];
@@ -151,7 +155,7 @@ const DashboardPage = ({ data }) => {
           Add
         </Button>
       </div>
-      <Table  className="m-10"  pagination={false} dataSource={users} loading={loader} columns={columns} />
+      <Table className="m-10" rowKey={'_id'} dataSource={users} loading={loader} columns={columns} />
       <UserFormModal action={isEdit ? 'edit' : 'add'} data={user} visible={visible} setvisible={setvisible} />
     </div>
   );
