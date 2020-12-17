@@ -1,7 +1,11 @@
+import { Button } from 'antd';
 import React from 'react';
 import Users from '../../components/dashboard/Users'
-
+import { useDispatch, useSelector } from 'react-redux'
+import authActions from '../../actions/auth';
+const { logout } = authActions;
 const Dashboard = () => {
+  const dispatch = useDispatch();
   const data = [
     {
       key: '1',
@@ -19,7 +23,14 @@ const Dashboard = () => {
 
   return (
     <div className="pt-40 px-40">
+      <div className="my-15">
+        <Button onClick={()=>{
+           dispatch(logout())
+        }}>Logout</Button>
+      </div>
+      <div className="my-30">
         <Users data={data} />
+      </div>
     </div >
   );
 };

@@ -7,7 +7,6 @@ const initialState = {
 };
 
 export default function rootReducer(state = initialState, action) {
-    console.log(action.type);
     switch (action.type) {
         case userActions.GET_USERS:
             return {
