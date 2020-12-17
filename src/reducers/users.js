@@ -20,6 +20,16 @@ export default function rootReducer(state = initialState, action) {
                 ...state,
                 loader: true
             };
+        case userActions.EDIT_USER:
+            return {
+                ...state,
+                loader: true
+            };
+        case userActions.REMOVE_USER:
+            return {
+                ...state,
+                loader: true
+            };
         case userActions.GET_USERS_SUCCESS:
             return {
                 ...state,

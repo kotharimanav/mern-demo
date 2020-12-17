@@ -1,15 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Modal } from 'antd';
 import userActions from '../../actions/users';
-import { useDispatch, useSelector } from 'react-redux'
-const { addUser } = userActions;
+import { useDispatch } from 'react-redux'
+const { addUser, editUser } = userActions;
 
-const UserFormModal = ({ visible, setvisible }) => {
+const UserFormModal = ({ visible, setvisible, action, data }) => {
     const dispatch = useDispatch();
+    const [fields, setFields] = useState([]);
+    const [form] = Form.useForm();
+
     const layout = {
         labelCol: { span: 8 },
         wrapperCol: { span: 16 },
     };
+
+    useEffect(() => {
+        if (action === "edit") {
+            setFields([{
+                name: [
+                    "name"
+                ],
+                value: data.name
+            }, {
+                name: [
+                    "age"
+                ],
+                value: data.age
+            }, {
+                name: [
+                    "email"
+                ],
+                value: data.email
+            }])
+        }
+        if (action === 'add') {
+            form.resetFields();
+            setFields([]);
+        }
+        // eslint-disable-next-line
+    }, [data, action])
 
     const handleOk = () => {
         setvisible(false);
@@ -22,7 +51,12 @@ const UserFormModal = ({ visible, setvisible }) => {
 
     const onFinish = values => {
         console.log('Success:', values);
-        dispatch(addUser(values));
+        if (action === "add") {
+            dispatch(addUser(values));
+        }
+        if (action === "edit") {
+            dispatch(editUser(data._id, values));
+        }
         handleOk();
     };
 
@@ -31,12 +65,13 @@ const UserFormModal = ({ visible, setvisible }) => {
     };
 
     return (
-        <Modal title="Add User" visible={visible} footer={[]} onCancel={handleCancel}>
+        <Modal title={action === "edit" ? "Edit User" : "Add User"} visible={visible} footer={[]} onCancel={handleCancel}>
             <div>
                 <Form
+                    form={form}
                     {...layout}
                     name="basic"
-                    initialValues={{ remember: true }}
+                    fields={action === "edit" ? fields : []}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                 >
@@ -52,7 +87,7 @@ const UserFormModal = ({ visible, setvisible }) => {
                         name="email"
                         rules={[{ required: true, message: 'Please input your email!' }]}
                     >
-                        <Input />
+                        <Input disabled={action === "edit"} />
                     </Form.Item>
                     <Form.Item
                         label="Age"

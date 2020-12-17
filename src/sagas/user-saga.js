@@ -1,6 +1,6 @@
 import { put, all, takeEvery, fork,select } from 'redux-saga/effects';
 import actions from '../actions';
-import { getUsers,addUser } from '../services/user-services';
+import { getUsers,addUser,removeUser,editUser } from '../services/user-services';
 
 const { userActions } = actions;
 
@@ -33,7 +33,38 @@ export function* addUserRequest() {
     });
 }
 
+export function* editUserRequest() {
+    yield takeEvery(userActions.EDIT_USER, function* ({id,data}) {
+        try {
+            const token =yield select(state =>state.auth.accessToken);
+            yield editUser(token,id,data);
+            yield put({
+                type: userActions.GET_USERS,
+            });
+        } catch (error) {
+           console.log(error);
+        }
+    });
+}
+
+
+export function* removeUserRequest() {
+    yield takeEvery(userActions.REMOVE_USER, function* ({id}) {
+        try {
+            const token =yield select(state =>state.auth.accessToken);
+            yield removeUser(token, id);
+            yield put({
+                type: userActions.GET_USERS,
+            });
+        } catch (error) {
+           console.log(error);
+        }
+    });
+}
+
+
+
 
 export default function* rootSaga() {
-    yield all([fork(getUsersRequest),fork(addUserRequest)]);
+    yield all([fork(getUsersRequest),fork(addUserRequest),fork(removeUserRequest),fork(editUserRequest)]);
 }
