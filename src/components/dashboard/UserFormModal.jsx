@@ -48,7 +48,6 @@ const UserFormModal = ({ visible, setvisible, action, data }) => {
         setvisible(false);
     };
 
-
     const onFinish = values => {
         if (action === "add") {
             dispatch(addUser(values));
@@ -84,7 +83,7 @@ const UserFormModal = ({ visible, setvisible, action, data }) => {
                     <Form.Item
                         label="Email"
                         name="email"
-                        rules={[{ required: true, message: 'Please input your email!' }]}
+                        rules={[{ required: true, message: 'Please input your email!' },{ type:'email', message: 'Invalid email' }]}
                     >
                         <Input disabled={action === "edit"} />
                     </Form.Item>
