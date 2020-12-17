@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Button, Tag, Space } from 'antd';
-import { Popconfirm, message } from 'antd';
+import { Table, Button } from 'antd';
+import { Popconfirm } from 'antd';
 import { useDispatch, useSelector } from 'react-redux'
 import UserFormModal from './UserFormModal';
 import userActions from '../../actions/users';
@@ -14,6 +14,7 @@ const DashboardPage = ({ data }) => {
 
   useEffect(()=>{
     dispatch(getUsers());
+    // eslint-disable-next-line
   },[]);
 
   const columns = [

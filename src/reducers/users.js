@@ -15,6 +15,11 @@ export default function rootReducer(state = initialState, action) {
                 loader: true,
                 data: null
             };
+        case userActions.ADD_USER:
+            return {
+                ...state,
+                loader: true
+            };
         case userActions.GET_USERS_SUCCESS:
             return {
                 ...state,
