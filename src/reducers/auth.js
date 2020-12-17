@@ -19,15 +19,15 @@ export default function rootReducer(state = initialState, action) {
     case authActions.LOGIN_SUCCESS:
       return {
         ...state,
-        isLogin: action.data.isLogin,
-        accessToken: action.data.accessToken,
+        isLogin: true,
+        accessToken: action.data.token,
         loader: false
       };
     case authActions.LOGIN_FAILED:
       return {
         ...state,
-        isLogin: action.data.isLogin,
-        accessToken: action.data.accessToken,
+        isLogin: false,
+        accessToken: null,
         loader: false
       };
     case authActions.LOGOUT:

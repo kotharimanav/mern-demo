@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Tag, Space } from 'antd';
 import { Popconfirm, message } from 'antd';
-
+import { useDispatch, useSelector } from 'react-redux'
 import UserFormModal from './UserFormModal';
+import userActions from '../../actions/users';
+const {getUsers} = userActions;
 
 const DashboardPage = ({ data }) => {
   const [visible, setvisible] = useState(false);
+  const dispatch = useDispatch();
+  const users = useSelector(state=>state.users.data);
+  const loader = useSelector(state=>state.users.loader);
+
+  useEffect(()=>{
+    dispatch(getUsers());
+  },[]);
 
   const columns = [
     {
@@ -56,12 +65,12 @@ const DashboardPage = ({ data }) => {
   ];
   return (
     <div className='mlr-auto card'>
-      <div className='my-10'>
-        <Button onClick={() => { setvisible(true) }}>
+      <div className='ml-auto'>
+        <Button className="pull-right m-10" onClick={() => { setvisible(true) }}>
           Add
         </Button>
       </div>
-      <Table dataSource={data} columns={columns} />
+      <Table className="m-10" dataSource={users} loading={loader} columns={columns} />
       <UserFormModal visible={visible} setvisible={setvisible} />
     </div>
   );

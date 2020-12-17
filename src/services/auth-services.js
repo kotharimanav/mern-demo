@@ -1,14 +1,15 @@
+const axios = require('axios');
+const {setHeadersWithAccessToken} = require('./index');
+
 export const login = async data => {
-  return await new Promise((resolve, reject) => {
-    if (data.username === 'test' && data.password === '123456') {
-      resolve({
-        isLogin: true,
-        accessToken: 'dummyToken'
-      });
-    }
-    reject(null);
+  setHeadersWithAccessToken(null);
+  return await axios.post(`/admin/login`, data).then(res=>{
+  console.log(res);
+    return res.data
   });
 };
+
+
 
 export const logout = () => {
   return {

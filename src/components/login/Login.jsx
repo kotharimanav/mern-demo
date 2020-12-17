@@ -16,7 +16,7 @@ export default function LoginPage({login}) {
   };
 
   return (
-      <div className='wa-45 mlr-auto card'>
+      <div className='wa-45 mlr-auto card py-20 px-20'>
         <Form
           name='basic'
           initialValues={{ remember: true }}
@@ -24,9 +24,9 @@ export default function LoginPage({login}) {
           onFinishFailed={onFinishFailed}
         >
           <Form.Item
-            label='Username'
-            name='username'
-            rules={[{ required: true, message: 'Please input your username!' }]}
+            label='Email'
+            name='email'
+            rules={[{ required: true, message: 'Please input your email!' }]}
           >
             <Input />
           </Form.Item>
@@ -36,9 +36,6 @@ export default function LoginPage({login}) {
             rules={[{ required: true, message: 'Please input your password!' }]}
           >
             <Input.Password />
-          </Form.Item>
-          <Form.Item {...tailLayout} name='remember' valuePropName='checked'>
-            <Checkbox>Remember me</Checkbox>
           </Form.Item>
           <Form.Item {...tailLayout}>
             <Button type='primary' htmlType='submit'>

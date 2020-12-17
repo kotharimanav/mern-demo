@@ -5,7 +5,6 @@ const { authActions } = actions;
 
 export function* loginRequest() {
   yield takeEvery(authActions.LOGIN_REQUEST, function*({ data }) {
-    console.log(data);
     try {
       const response = yield login(data);
       console.log(response);
