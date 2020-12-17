@@ -8,7 +8,6 @@ export default function LoginPage({login}) {
 
   const onFinish = values => {
     login(values);
-    console.log('Success:', values);
   };
 
   const onFinishFailed = errorInfo => {

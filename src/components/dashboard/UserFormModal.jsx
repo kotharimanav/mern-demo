@@ -50,7 +50,6 @@ const UserFormModal = ({ visible, setvisible, action, data }) => {
 
 
     const onFinish = values => {
-        console.log('Success:', values);
         if (action === "add") {
             dispatch(addUser(values));
         }

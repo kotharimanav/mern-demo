@@ -9,7 +9,6 @@ export function* loginRequest() {
   yield takeEvery(authActions.LOGIN_REQUEST, function*({ data }) {
     try {
       const response = yield login(data);
-      console.log(response);
       notification.open({
         message: 'Logged In',
         description:response.message
